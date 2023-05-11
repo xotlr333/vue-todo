@@ -1,7 +1,7 @@
 <template>
     <div>
-        <TodoHeader @add-todo="addTodo" :todos="todos"/>
-        <TodoList @delete-todo="deleteTodo" :todos="todos"/>
+        <TodoHeader :todos="todos"/>
+        <TodoList :todos="todos"/>
     </div>
 </template>
 
@@ -22,10 +22,6 @@ defineProps({
 
 const addTodo = (todo) => {
     emit('add-todo', todo);
-}
-
-const deleteTodo = (id) => {
-  emit('delete-todo', id);
 }
 
 </script>

@@ -53,14 +53,15 @@ const props = defineProps({
         type: Object,
     }
 })
-const todoProp = toRefs(props.todo)
 
 const title = ref('');
 const summary = ref('');
 const category = ref('todo');
 const isAdd = props.todo === undefined;
-console.log(title.value);
+const todoProp = toRefs(props.todo);
+
 if (!isAdd){
+    
     title.value = todoProp.title.value;
     summary.value = todoProp.summary.value;
     category.value = todoProp.category.value;
@@ -84,7 +85,6 @@ const addTodo = () => {
         summary: summary.value,
         category: category.value,
     }
-    // emit('add-todo', newTodo);
     isAdd ? todoStore.addTodo(newTodo) : todoStore.editTodo({id:todoProp.id.value, ...newTodo});
     emit('close-modal');
 }

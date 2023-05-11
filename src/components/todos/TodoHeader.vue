@@ -14,7 +14,7 @@
                     <h3>New Todo</h3>
                 </template>
                 <template #body>
-                    <NewTodo @add-todo="addTodo" @close-modal="closeModal" />
+                    <NewTodo @close-modal="closeModal" />
                 </template>
             </DefaultModal>
         </Teleport>
@@ -29,9 +29,6 @@ import TodoFilter from './TodoFilter.vue';
 import NewTodo from './NewTodo.vue';
 import { ref } from 'vue';
 
-
-const emit = defineEmits(['add-todo']);
-
 const isModalOpen = ref(false);
 const openModal = () => {
     isModalOpen.value = true;
@@ -39,10 +36,6 @@ const openModal = () => {
 
 const closeModal = () => {
     isModalOpen.value = false;
-}
-
-const addTodo = (todo) => {
-    emit('add-todo', todo);
 }
 
 </script>

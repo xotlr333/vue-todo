@@ -12,20 +12,11 @@ const { filteredTodosByCategory } = storeToRefs(todoStore);
 
 const dummyTodos = filteredTodosByCategory;
 
-
-const addTodo = (todo) => {
-  dummyTodos.value.push({id: new Date().getTime(), ...todo});
-}
-
-const deleteTodo = (id) => {
-  dummyTodos.value = dummyTodos.value.filter((todo) => todo.id !== id);
-}
-
 </script>
 
 <template>
   <DefaultLayout>
     <AppHeader />
-    <AppSection @add-todo="addTodo" @delete-todo="deleteTodo" :todos="dummyTodos"/>
+    <AppSection :todos="dummyTodos"/>
   </DefaultLayout>
 </template>

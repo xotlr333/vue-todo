@@ -11,18 +11,17 @@
             <button @click="openModal" class="w-8 text-xl font-semibold cursor-pointer">✏️</button>
             <button @click="() => deleteTodo(todo.id)" class="w-8 text-xl font-semibold text-red-300 cursor-pointer">X</button>
         </div>
+        <Teleport to="body">
+            <DefaultModal :show="isModalOpen"  @close-modal="closeModal">
+                <template #header>
+                    <h3>edit Todo</h3>
+                </template>
+                <template #body>
+                    <NewTodo :todo="todo" @close-modal="closeModal" />
+                </template>
+            </DefaultModal>
+        </Teleport>
     </li>
-
-    <Teleport to="body">
-        <DefaultModal :show="isModalOpen"  @close-modal="closeModal">
-            <template #header>
-                <h3>edit Todo</h3>
-            </template>
-            <template #body>
-                <NewTodo :todo="todo" @close-modal="closeModal" />
-            </template>
-        </DefaultModal>
-    </Teleport>
 </template>
 
 <script setup>
