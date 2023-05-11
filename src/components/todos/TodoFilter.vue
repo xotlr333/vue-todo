@@ -1,6 +1,8 @@
 <template>
     <div>
         <select 
+          v-model="selectedCategory"
+          @change="todoStore.filterTodos(selectedCategory)"
           class="p-2 text-gray-100 bg-gray-800 rounded"
           data-cy="todo-filter"
           >
@@ -13,5 +15,11 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { useTododStore } from '../../stores/todo';
+
+const todoStore = useTododStore();
+
+const selectedCategory = ref('all');
 
 </script>

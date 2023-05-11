@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 // use~: 일반적인 네이밍 컨벤션
 // defineStore('store이름', store에서 관리될 state, getter, actions)
@@ -26,10 +26,12 @@ export const useTododStore = defineStore('todoStore', () => {
         }
       ]);
 
+    const selectedCategory = ref('all');
+
     // actions - state 값을 변경하는 함수
       // todo 추가 - addTodo
       const addTodo = (newTodo) => {
-        todos.value.push(newTodo);
+        todos.value.push({id: new Date().getTime, ...newTodo});
       };
 
       // todo 수정 - editTodo
@@ -37,18 +39,31 @@ export const useTododStore = defineStore('todoStore', () => {
       // todo 삭제 - deleteTodo
       const deleteTodo = (id) => {
         todos.value = todos.value.filter((todo) => todo.id !== id);
-      }
+      };
 
       // todo 필터링 - filterTodo
+      const filterTodos = (category) => {
+        selectedCategory.value = category;
+      };
 
     // getter(computed()와 동일)
       // 필터링된 todo 목록 - filteredTodosByCategory
+      const filteredTodosByCategory = computed(() => {
+        const currentCategory = selectedCategory.value;
+
+        if (currentCategory === 'all') return todos.value;
+
+        return todos.value.filter(todo => todo.category === currentCategory);
+      });
 
 
     return {
         todos,
+        selectedCategory,
+        filteredTodosByCategory,
         addTodo,
         deleteTodo,
+        filterTodos,
     }
 
 });

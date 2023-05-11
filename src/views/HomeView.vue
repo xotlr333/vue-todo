@@ -9,9 +9,9 @@ import { storeToRefs } from 'pinia';
 // pinia의 store를 사용하려면 해당 store를 import
 const todoStore = useTododStore();
 
-const { todos } = storeToRefs(todoStore);
+const { filteredTodosByCategory } = storeToRefs(todoStore);
 
-const dummyTodos = todos;
+const dummyTodos = filteredTodosByCategory;
 
 
 const addTodo = (todo) => {
