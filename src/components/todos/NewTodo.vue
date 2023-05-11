@@ -45,12 +45,15 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useTododStore } from '../../stores/todo';
 
 const title = ref('');
 const summary = ref('');
 const category = ref('todo');
 
 const isFromInValid = ref(false);
+
+const todoStore = useTododStore();
 
 const emit = defineEmits(['close-modal', 'add-todo']);
 
@@ -62,11 +65,12 @@ const addTodo = () => {
     }
 
     const newTodo = {
-        title,
-        summary,
-        category,
+        title: title.value,
+        summary: summary.value,
+        category: category.value,
     }
-    emit('add-todo', newTodo);
+    // emit('add-todo', newTodo);
+    todoStore.addTodo(newTodo);
     emit('close-modal');
 }
 
