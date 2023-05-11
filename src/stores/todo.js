@@ -35,6 +35,9 @@ export const useTododStore = defineStore('todoStore', () => {
       // todo 수정 - editTodo
 
       // todo 삭제 - deleteTodo
+      const deleteTodo = (id) => {
+        todos.value = todos.value.filter((todo) => todo.id !== id);
+      }
 
       // todo 필터링 - filterTodo
 
@@ -45,6 +48,7 @@ export const useTododStore = defineStore('todoStore', () => {
     return {
         todos,
         addTodo,
+        deleteTodo,
     }
 
 });

@@ -15,8 +15,12 @@
 </template>
 
 <script setup>
+import { useTododStore } from '../../stores/todo';
 
-const emit = defineEmits(['delete-todo']);
+
+const todoStore = useTododStore();
+
+// const emit = defineEmits(['delete-todo']);
 
 defineProps({
     todo: {
@@ -39,7 +43,8 @@ const category_icons = {
 }
 
 const deleteTodo = (id) => {
-    emit('delete-todo', id);
+    // emit('delete-todo', id);
+    todoStore.deleteTodo(id);
 }
 
 </script>
