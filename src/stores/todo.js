@@ -31,10 +31,18 @@ export const useTododStore = defineStore('todoStore', () => {
     // actions - state 값을 변경하는 함수
       // todo 추가 - addTodo
       const addTodo = (newTodo) => {
-        todos.value.push({id: new Date().getTime, ...newTodo});
+        todos.value.push({id: new Date().getTime(), ...newTodo});
       };
 
       // todo 수정 - editTodo
+      const editTodo = (editTodo) => {
+        todos.value = todos.value.map((todo) => {
+            if (todo.id === editTodo.id){
+                todo = editTodo;
+            }
+            return todo;
+        })
+      }
 
       // todo 삭제 - deleteTodo
       const deleteTodo = (id) => {
@@ -45,6 +53,7 @@ export const useTododStore = defineStore('todoStore', () => {
       const filterTodos = (category) => {
         selectedCategory.value = category;
       };
+
 
     // getter(computed()와 동일)
       // 필터링된 todo 목록 - filteredTodosByCategory
@@ -64,6 +73,7 @@ export const useTododStore = defineStore('todoStore', () => {
         addTodo,
         deleteTodo,
         filterTodos,
+        editTodo,
     }
 
 });

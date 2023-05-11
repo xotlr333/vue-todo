@@ -38,18 +38,33 @@
         </p>
         <p class="flex justify-end gap-4">
             <button @click="emit('close-modal')" class="text-xl text-white" type="button" >Cancel</button>
-            <button class="px-6 py-3 text-xl text-red-200" type="submit">Add</button>
+            <button v-if="isAdd" class="px-6 py-3 text-xl text-red-200" type="submit">Add</button>
+            <button v-else class="px-6 py-3 text-xl text-red-200" type="submit">Edit</button>
         </p>
     </form>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 import { useTododStore } from '../../stores/todo';
+
+const props = defineProps({
+    todo: {
+        type: Object,
+    }
+})
+const todoProp = toRefs(props.todo)
 
 const title = ref('');
 const summary = ref('');
 const category = ref('todo');
+const isAdd = props.todo === undefined;
+console.log(title.value);
+if (!isAdd){
+    title.value = todoProp.title.value;
+    summary.value = todoProp.summary.value;
+    category.value = todoProp.category.value;
+}
 
 const isFromInValid = ref(false);
 
@@ -70,7 +85,7 @@ const addTodo = () => {
         category: category.value,
     }
     // emit('add-todo', newTodo);
-    todoStore.addTodo(newTodo);
+    isAdd ? todoStore.addTodo(newTodo) : todoStore.editTodo({id:todoProp.id.value, ...newTodo});
     emit('close-modal');
 }
 
